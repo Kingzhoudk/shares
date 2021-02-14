@@ -121,5 +121,3 @@ class DataCollect(object):
         self.data_train = np.array(self.data_train)
         self.data_target = np.array(self.data_target)
         return 1    
-
-SaveDateToday("300666.SZ")
