@@ -28,14 +28,19 @@ class SqlLiteData(object):
                 start_dt = str(ans_time_stamp.tm_year) + \
                     str(ans_time_stamp.tm_mon)+str(ans_time_stamp.tm_mday)
         except:
-            print("creat table: " + table_name)
-            sql = 'CREATE TABLE "%s" ("state_dt" TEXT NOT NULL,"stock_code" TEXT NOT NULL,"open" REAL,\
-                "close"	REAL,"high"	REAL,"low"	REAL,"vol"	INTEGER,"amount" REAL,"pre_close"	REAL,"amt_change" REAL,"pct_change" REAL,\
-                PRIMARY KEY("state_dt"))' % (table_name)
-            cur = conn.execute(sql)
-            conn.commit()
+            print("error")
         conn.close()
         return start_dt
+
+    def CreatTable(self,table_name):
+        conn = self.GetConn()
+        print("creat table: " + table_name)
+        sql = 'CREATE TABLE "%s" ("state_dt" TEXT NOT NULL,"stock_code" TEXT NOT NULL,"open" REAL,\
+            "close"	REAL,"high"	REAL,"low"	REAL,"vol"	INTEGER,"amount" REAL,"pre_close"	REAL,"amt_change" REAL,"pct_change" REAL,\
+            PRIMARY KEY("state_dt"))' % (table_name)
+        cur = conn.execute(sql)
+        conn.commit()
+        conn.close()
 
     def SaveDateToday(self, table_name):
         # init
@@ -51,9 +56,12 @@ class SqlLiteData(object):
             df = pro.daily(ts_code=table_name,
                            start_date=start_dt, end_date=end_dt)
             c_len = df.shape[0]
+            print(c_len)
+            if c_len != 0 and start_dt == "20100101":
+                self.CreatTable(table_name)
         except Exception as aa:
             print(aa)
-            print('No DATA Code: ' + str(i))
+            print('No DATA Code: ' + table_name)
             return -1
         for j in range(c_len):
             resu0 = list(df.iloc[c_len-1-j])
