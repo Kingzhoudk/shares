@@ -75,7 +75,6 @@ class GuiMain(object):
         # print("ButtonInput:"+data_base)
         # mpf.plot(data_base,ax=self.mpf_ax1,volume=self.mpf_ax2,**self.mpf_pkwargs)
 
-
     def ExitShares(self):
         self.window.quit()
         self.window.destroy()

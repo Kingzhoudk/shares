@@ -32,18 +32,14 @@ var hq_str_sh601688=
 31: "09:48:11": 时间
 
 '''
-
-# 获取实时价格
-def get_realtime_price(str_ticker):
-    # 发送请求
-    price_all = requests.get('http://hq.sinajs.cn/list=' + str_ticker).text
-    print(price_all)
-    price_ticker = re.findall(r'var hq_str_(.*?);', price_all)
-    price_tick = price_ticker[0].split(',')  # 实时股价的list
-    return price_tick
-
-
-if __name__ == "__main__":
-    xx = 'sz002463'
-    yy = get_realtime_price(xx)
-    print(yy)
+class Montion(object):
+    def __init__(self):
+        self.List=[]
+    # 获取实时价格
+    def get_realtime_price(self,str_ticker):
+        # 发送请求 'list=sz002463'
+        price_all = requests.get('http://hq.sinajs.cn/list=' + str_ticker).text
+        print(price_all)
+        price_ticker = re.findall(r'var hq_str_(.*?);', price_all)
+        price_tick = price_ticker[0].split(',')  # 实时股价的list
+        return price_tick

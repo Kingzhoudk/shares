@@ -3,7 +3,7 @@ from sklearn import svm
 import numpy as np
 
 
-class DataCollect(object):
+class SvnData(object):
     def __init__(self, in_code, start_dt, end_dt):
         ans = self.collectData(in_code, start_dt, end_dt)
 
@@ -62,9 +62,3 @@ class DataCollect(object):
         ans2 = model.predict(test_case)  # 预测
         print(ans2[0])
         return ans2[0]
-
-
-if __name__ == '__main__':
-    stock = '603993.SH'
-    dc = DataCollect(stock, '2017-03-01', '2020-11-09')
-    dc.collectSvn()
